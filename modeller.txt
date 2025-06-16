@@ -1,0 +1,108 @@
+y_pred_train = model.predict(X_train)
+y_pred_test = model.predict(X_test)
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix, classification_report
+
+print("Train Accuracy:", accuracy_score(y_train, y_pred_test))
+print("Test Accuracy:", accuracy_score(y_test, y_pred_test))
+print("Precision:", precision_score(y_test, y_pred_test))
+print("Recall:", recall_score(y_test, y_pred_test))
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(confusion_matrix(y_test, y_pred_test), annot=True, fmt='d', cmap='Blues', cbar=False)
+plt.title('Confusion Matrix')
+plt.xlabel('Predicted Label')
+plt.ylabel('True Label')
+plt.show()
+
+print("\nClassification Report:\n")
+print(classification_report(y_test, y_pred_test))
+
+#################################################################################
+linear regression:
+
+from sklearn.linear_model import LinearRegression
+model = LinearRegression()
+model.fit(X_train, y_train)
+print("Coefficients:", model.coef_)
+#################################################################################
+logistic regression:
+
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+model.fit(X_train, y_train)
+print("Coefficients:", model.coef_)
+#################################################################################
+naive bayes:
+
+from sklearn.naive_bayes import GaussianNB
+model = GaussianNB()
+model.fit(X_train, y_train)
+#################################################################################
+KNN:
+
+from sklearn.neighbors import KNeighborsClassifier
+model = KNeighborsClassifier()
+model.fit(X_train, y_train)
+#################################################################################
+decision tree:
+
+from sklearn.tree import DecisionTreeClassifier
+model = DecisionTreeClassifier(max_depth=2, random_state=42)
+model.fit(X, y)
+#################################################################################
+random forest:
+
+from sklearn.ensemble import RandomForestClassifier
+model = RandomForestClassifier(n_estimators=500, max_leaf_nodes=16, random_state=42)
+model.fit(X_train, y_train)
+#################################################################################
+neural network:
+
+from keras.models import Sequential
+from keras.layers import Dense
+
+
+model = Sequential([
+    Dense(32, activation='relu', input_shape=(10,)),
+    Dense(32, activation='relu'),
+    Dense(1, activation='sigmoid'),
+])
+
+ya da 
+
+model = Sequential([
+    Dense(32, activation='relu', input_shape=(X_train.shape[1],)),
+    Dense(16, activation='relu'),
+    Dense(8, activation='relu'),
+    Dense(4, activation='relu'),
+    Dense(1, activation='linear'),
+])
+
+
+model.compile(optimizer='sgd',
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
+
+hist = model.fit(X_train, y_train, batch_size=32, epochs=20, validation_split=0.1)
+
+model.evaluate(X_test, Y_test)[1]
+
+#################################################################################
+#################################################################################
+scale:
+
+from sklearn.preprocessing import StandardScaler
+standard_scaler = StandardScaler()
+X_train_scaled = standard_scaler.fit_transform(X_train) 
+X_test_scaled = standard_scaler.transform(X_test)
+y_train_scaled = standard_scaler.fit_transform(y_train) 
+y_test_scaled = standard_scaler.transform(y_test)
+
+#################################################################################
+#################################################################################
+
+
+
+
+
